@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Calculadora de Obra</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .box { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; }
+    </style>
+</h:head>
+<h:body>
+    <h2>Solicitação de Orçamento</h2>
+
+    <h:messages globalOnly="true" style="color: blue; font-weight: bold;"/>
+
+    <div class="box">
+        <h3>Novo Orçamento</h3>
+        <h:form>
+            <h:outputLabel value="Nome do Cliente:" /><br/>
+            <h:inputText value="#{orcamentoBean.orcamento.nomeUsuario}" required="true" /><br/><br/>
+
+            <h:outputLabel value="Área Total (m²):" /><br/>
+            <h:inputText value="#{orcamentoBean.orcamento.areaTotal}" required="true" /><br/><br/>
+
+            <h:commandButton value="Calcular Materiais e Salvar" action="#{orcamentoBean.calcularESalvar}" />
+        </h:form>
+    </div>
+
+    <div class="box">
+        <h3>Buscar Orçamentos</h3>
+        <h:form>
+            <h:outputLabel value="Nome do Cliente:" />
+            <h:inputText value="#{orcamentoBean.nomeBusca}" />
+            <h:commandButton value="Buscar" action="#{orcamentoBean.buscarPorNome}" />
+        </h:form>
+
+        <br/>
+
+        <h:dataTable value="#{orcamentoBean.listaOrcamentos}" var="orc" border="1" rendered="#{not empty orcamentoBean.listaOrcamentos}">
+            <h:column><f:facet name="header">Nº</f:facet>#{orc.id}</h:column>
+            <h:column><f:facet name="header">Nome</f:facet>#{orc.nomeUsuario}</h:column>
+            <h:column><f:facet name="header">Área (m²)</f:facet>#{orc.areaTotal}</h:column>
+        </h:dataTable>
+    </div>
+</h:body>
+</html>
